@@ -1,8 +1,13 @@
 # LkBank
 
-Projeto colaborativo desenvolvido por Kevin Richard (Desenvolvedor Júnior) e José Fumi (Assistente de Desenvolvedor), utilizando a linguagem de programação **Java** e seguindo os princípios do paradigma de **Orientação a Objetos (OO)**.
+LkBank é um projeto colaborativo desenvolvido por **dois estudantes**, Kevin Richard (Desenvolvedor Júnior) e Lucy (Desenvolvedora Júnior), como parte de sua jornada de aprendizado em programação. O projeto é escrito em **Java** e segue os princípios do paradigma de **Orientação a Objetos (OO)**.
 
-Este projeto visa consolidar e aplicar conhecimentos adquiridos em cursos das plataformas [Alura](https://www.alura.com.br/) e [Udemy](https://www.udemy.com/), servindo como base de estudos e experimentação prática.
+O principal objetivo deste projeto é consolidar e aplicar conhecimentos adquiridos em cursos das plataformas [Alura](https://www.alura.com.br/) e [Udemy](https://www.udemy.com/), servindo como base de estudos, prática e experimentação.
+
+## 🎓 Sobre os Autores
+
+- **Kevin Richard** – Estudante de Desenvolvimento de Software
+- **Lucy** – Estudante de Desenvolvimento de Software
 
 ## 📚 Cursos Utilizados como Referência
 
