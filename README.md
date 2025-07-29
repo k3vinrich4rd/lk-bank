@@ -1,4 +1,4 @@
-# LkBank
+<img width="714" height="714" alt="image" src="https://github.com/user-attachments/assets/538cfd47-0218-4880-8ed0-83cb8857b7e6" /># LkBank
 
 LkBank é um projeto colaborativo desenvolvido por **dois estudantes**, Kevin Richard (Desenvolvedor Júnior) e Lucy (Desenvolvedora Júnior), como parte de sua jornada de aprendizado em programação. O projeto é escrito em **Java** e segue os princípios do paradigma de **Orientação a Objetos (OO)**.
 
@@ -22,6 +22,33 @@ O principal objetivo deste projeto é consolidar e aplicar conhecimentos adquiri
 - Depósito em conta
 - Saque de valores
 - Transferência entre contas
+
+```mermaid
+classDiagram
+direction TB
+    class ContaService {
+	    +Sacar(double Saldo, double ValorSaque)
+	    +Depositar(double Saldo, double ValorDeposito))
+	    +Transferir(double Saldo, double ValorTransferencia))
+    }
+
+    class ContaServiceImpl {
+	    -int numeroConta
+	    -String nomeTitular
+	    -double saldo
+	    -String CPF
+    }
+
+    class ContaCorrente {
+    }
+
+	<<Interface>> ContaService
+	<<Abstract>> ContaServiceImpl
+
+    ContaServiceImpl <|-- ContaService
+    ContaCorrente -- ContaServiceImpl
+```
+
 
 ## 👨‍💻 Como Contribuir
 
