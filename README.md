@@ -23,6 +23,33 @@ O principal objetivo deste projeto é consolidar e aplicar conhecimentos adquiri
 - Saque de valores
 - Transferência entre contas
 
+```mermaid
+classDiagram
+direction TB
+    class ContaService {
+	    +Sacar(double Saldo, double ValorSaque)
+	    +Depositar(double Saldo, double ValorDeposito))
+	    +Transferir(double Saldo, double ValorTransferencia))
+    }
+
+    class ContaServiceImpl {
+	    -int numeroConta
+	    -String nomeTitular
+	    -double saldo
+	    -String CPF
+    }
+
+    class ContaCorrente {
+    }
+
+	<<Interface>> ContaService
+	<<Abstract>> ContaServiceImpl
+
+    ContaServiceImpl <|-- ContaService
+    ContaCorrente -- ContaServiceImpl
+```
+
+
 ## 👨‍💻 Como Contribuir
 
 . Faça um fork deste repositório: [LkBank](https://github.com/k3vinrich4rd/lk-bank)
