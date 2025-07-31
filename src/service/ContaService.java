@@ -1,4 +1,4 @@
-package src.services;
+package service;
 
 public interface ContaService {
 
@@ -6,5 +6,5 @@ public interface ContaService {
 
     double depositar(double saldo);
 
-    double transferir(double saldo);
+    double transferir(double saldo, ContaServiceImpl conta);
 }
