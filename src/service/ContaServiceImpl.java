@@ -7,15 +7,14 @@ public abstract class ContaServiceImpl implements ContaService {
     private String CPF;
     private double saldo;
 
-    @Override
-    public double sacar(double valorSaque, ContaServiceImpl conta){
+    public double sacar(double valorSaque){
         if (this.saldo <= 0 || this.saldo < valorSaque){
             return 0;
         }
         return this.saldo - valorSaque;
     }
 
-    public double depositar(double valorDeposito, ContaServiceImpl conta){
+    public double depositar(double valorDeposito){
         return this.saldo + valorDeposito;
     }
 
@@ -25,8 +24,8 @@ public abstract class ContaServiceImpl implements ContaService {
             return 0;
             //Todo: Criar a task para criação de exception
         }
-        this.sacar(valorTransferencia, conta);
-        conta.depositar(valorTransferencia, conta);
+        this.sacar(valorTransferencia);
+        conta.depositar(valorTransferencia);
         return valorTransferencia;
     }
 }
