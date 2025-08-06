@@ -1,10 +1,17 @@
 package service;
 
+import enums.ExceptionsEnum;
+import exception.SaldoInsuficienteException;
+
 public abstract class ContaServiceImpl implements ContaService {
 
     private int numeroConta;
     private String nomeTitular;
     private String CPF;
+    private double saldo;
+
+    public ContaServiceImpl() {
+    }
 
     public ContaServiceImpl(int numeroConta, String nomeTitular, String cPF, double saldo) {
         this.numeroConta = numeroConta;
@@ -13,24 +20,21 @@ public abstract class ContaServiceImpl implements ContaService {
         this.saldo = saldo;
     }
 
-    private double saldo;
-
     public double sacar(double valorSaque) {
         if (this.saldo <= 0 || this.saldo < valorSaque) {
-            return 0;
+            throw new SaldoInsuficienteException(ExceptionsEnum.SALDO_INSUFICIENTE.getMessage(valorSaque, saldo));
         }
-        return this.saldo - valorSaque;
+        return this.saldo -= valorSaque;
     }
 
     public double depositar(double valorDeposito) {
-        return this.saldo + valorDeposito;
+        return this.saldo += valorDeposito;
     }
 
     @Override
     public double transferir(double valorTransferencia, ContaServiceImpl conta) {
         if (this.saldo <= 0 || this.saldo < valorTransferencia) {
-            return 0;
-            // Todo: Criar a task para criação de exception
+            throw new SaldoInsuficienteException(ExceptionsEnum.SALDO_INSUFICIENTE.getMessage(valorTransferencia, saldo));
         }
         this.sacar(valorTransferencia);
         conta.depositar(valorTransferencia);
