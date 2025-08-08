@@ -15,7 +15,7 @@ class ContaCorrenteTest {
     @BeforeEach
     void setUp() {
         contaCorrente1 = new ContaCorrente(123, "Kevin Richard", "333", 300);
-        contaCorrente2 = new ContaCorrente(321, "Jose fumi", "333", 200);
+        contaCorrente2 = new ContaCorrente(321, "Lucy", "333", 200);
     }
 
     @Test
