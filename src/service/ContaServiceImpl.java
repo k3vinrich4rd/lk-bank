@@ -13,10 +13,10 @@ public abstract class ContaServiceImpl implements ContaService {
     public ContaServiceImpl() {
     }
 
-    public ContaServiceImpl(int numeroConta, String nomeTitular, String cPF, double saldo) {
+    public ContaServiceImpl(int numeroConta, String nomeTitular, String cpf, double saldo) {
         this.numeroConta = numeroConta;
         this.nomeTitular = nomeTitular;
-        CPF = cPF;
+        CPF = cpf;
         this.saldo = saldo;
     }
 
@@ -32,7 +32,7 @@ public abstract class ContaServiceImpl implements ContaService {
     }
 
     @Override
-    public double transferir(double valorTransferencia, ContaServiceImpl conta) {
+    public double transferir(double valorTransferencia, ContaService conta) {
         if (this.saldo <= 0 || this.saldo < valorTransferencia) {
             throw new SaldoInsuficienteException(ExceptionsEnum.SALDO_INSUFICIENTE.getMessage(valorTransferencia, saldo));
         }
@@ -61,8 +61,8 @@ public abstract class ContaServiceImpl implements ContaService {
         return CPF;
     }
 
-    public void setCPF(String cPF) {
-        CPF = cPF;
+    public void setCPF(String cpf) {
+        CPF = cpf;
     }
 
     public double getSaldo() {

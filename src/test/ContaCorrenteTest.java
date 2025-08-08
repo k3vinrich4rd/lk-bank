@@ -7,7 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import service.ContaCorrente;
 
-
 class ContaCorrenteTest {
 
     private ContaCorrente contaCorrente1;
@@ -31,24 +30,23 @@ class ContaCorrenteTest {
     void sacarSaldoInsuficiente() {
         Assertions.assertThrows(
                 SaldoInsuficienteException.class,
-                () -> contaCorrente1.sacar(1000.00));
+                () -> contaCorrente1.sacar(1000.00)
+        );
     }
 
     @Test
     @DisplayName("Transferir valor para outra conta")
     void transferir() {
-        contaCorrente1.transferir(200, contaCorrente2);
-        Assertions.assertEquals(400.00, contaCorrente2.getSaldo());
+        contaCorrente1.transferir(200.00, contaCorrente2);
+        Assertions.assertEquals(400.00, contaCorrente2.getSaldo(), 0.01);
     }
-
 
     @Test
     @DisplayName("Transferência com saldo insuficiente deve lançar exceção")
-    void sacarSaldoInsuficienteValorNegativo() {
+    void transferirSaldoInsuficiente() {
         Assertions.assertThrows(
                 SaldoInsuficienteException.class,
-                () -> contaCorrente1.transferir(500.00, contaCorrente2));
+                () -> contaCorrente1.transferir(500.00, contaCorrente2)
+        );
     }
-
-
 }
