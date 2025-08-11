@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Random;
+
 import enums.ExceptionsEnum;
 import exception.SaldoInsuficienteException;
 
@@ -10,13 +12,15 @@ public abstract class ContaServiceImpl implements ContaService {
     private String CPF;
     private double saldo;
 
+    Random random = new Random();
+
     public ContaServiceImpl() {
     }
 
-    public ContaServiceImpl(int numeroConta, String nomeTitular, String cpf, double saldo) {
-        this.numeroConta = numeroConta;
+    public ContaServiceImpl(String nomeTitular, String cpf, double saldo) {
+        this.numeroConta = random.nextInt(999999);
         this.nomeTitular = nomeTitular;
-        CPF = cpf;
+        CPF = formatarCPF(cpf);
         this.saldo = saldo;
     }
 
@@ -34,11 +38,21 @@ public abstract class ContaServiceImpl implements ContaService {
     @Override
     public double transferir(double valorTransferencia, ContaService conta) {
         if (this.saldo <= 0 || this.saldo < valorTransferencia) {
-            throw new SaldoInsuficienteException(ExceptionsEnum.SALDO_INSUFICIENTE.getMessage(valorTransferencia, saldo));
+            throw new SaldoInsuficienteException(
+                    ExceptionsEnum.SALDO_INSUFICIENTE.getMessage(valorTransferencia, saldo));
         }
         this.sacar(valorTransferencia);
         conta.depositar(valorTransferencia);
         return valorTransferencia;
+    }
+
+    public static String formatarCPF(String cpf) {
+        cpf = cpf.replaceAll("[^0-9]", "");
+        if (cpf.length() != 11) {
+            return cpf = null;
+        } else {
+            return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+        }
     }
 
     public int getNumeroConta() {

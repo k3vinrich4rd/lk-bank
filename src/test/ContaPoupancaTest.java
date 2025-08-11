@@ -1,9 +1,11 @@
+package test;
+
 import java.util.Scanner;
 
 import service.ContaPoupanca;
 import service.ContaServiceImpl;
 
-public class Application {
+public class ContaPoupancaTest {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -19,6 +21,11 @@ public class Application {
                     String nomeTitular = sc.nextLine();
                     System.out.print("\nAgora, seu CPF(Somente os números): ");
                     String CPF = sc.nextLine();
+                    while (ContaServiceImpl.formatarCPF(CPF) == null) {
+                        System.out.println("Número inválido! O CPF deve conter exatamente 11 caracteres.");
+                        System.out.print("CPF (sem os pontos e linhas): ");
+                        CPF = sc.nextLine();
+                    }
                     System.out.println("\nInsira o valor do depósito inicial: ");
                     double saldoInicial = sc.nextDouble();
                     ContaServiceImpl conta = new ContaPoupanca(nomeTitular, CPF, saldoInicial);
@@ -28,12 +35,11 @@ public class Application {
                     conta.depositar(valorDeposito);
                     System.out.println(conta.toString());
 
-
                     x = 3;
                     break;
                 case 2:
                     System.out.println("Função indisponível, tente novamente mais tarde!");
-                    x=3;
+                    x = 3;
 
                 default:
                     break;
