@@ -2,8 +2,8 @@ package service;
 
 public class ContaCorrente extends ContaServiceImpl {
 
-    public ContaCorrente(int numeroConta, String nomeTitular, String cPF, double saldo) {
-        super(numeroConta, nomeTitular, cPF, saldo);
+    public ContaCorrente(String nomeTitular, String cPF, double saldo) {
+        super(nomeTitular, cPF, saldo);
     }
 
     @Override
