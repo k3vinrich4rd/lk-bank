@@ -21,7 +21,7 @@ public class ContaPoupancaTest {
                     String nomeTitular = sc.nextLine();
                     System.out.print("\nAgora, seu CPF(Somente os números): ");
                     String CPF = sc.nextLine();
-                    while (ContaServiceImpl.formatarCPF(CPF) == null) {
+                    while (ContaServiceImpl.formatarCpf(CPF) == null) {
                         System.out.println("Número inválido! O CPF deve conter exatamente 11 caracteres.");
                         System.out.print("CPF (sem os pontos e linhas): ");
                         CPF = sc.nextLine();

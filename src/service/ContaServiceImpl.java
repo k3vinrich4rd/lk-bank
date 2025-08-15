@@ -9,7 +9,9 @@ public abstract class ContaServiceImpl implements ContaService {
 
     private int numeroConta;
     private String nomeTitular;
-    private String CPF;
+    private String cpf;
+    private String cpfF;
+
     private double saldo;
 
     Random random = new Random();
@@ -20,7 +22,15 @@ public abstract class ContaServiceImpl implements ContaService {
     public ContaServiceImpl(String nomeTitular, String cpf, double saldo) {
         this.numeroConta = random.nextInt(999999);
         this.nomeTitular = nomeTitular;
-        CPF = formatarCPF(cpf);
+        this.cpfF = formatarCpf(cpf);
+        this.saldo = saldo;
+    }
+    
+
+    public ContaServiceImpl(int numeroConta, String nomeTitular, String cpfF, double saldo) {
+        this.numeroConta = numeroConta;
+        this.nomeTitular = nomeTitular;
+        this.cpfF = cpfF;
         this.saldo = saldo;
     }
 
@@ -46,13 +56,17 @@ public abstract class ContaServiceImpl implements ContaService {
         return valorTransferencia;
     }
 
-    public static String formatarCPF(String cpf) {
+    public static String formatarCpf(String cpf) {
         cpf = cpf.replaceAll("[^0-9]", "");
         if (cpf.length() != 11) {
             return cpf = null;
         } else {
             return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
         }
+    }
+
+    public String fileWriter(ContaServiceImpl conta) {
+        return String.valueOf(numeroConta) + " " + nomeTitular + " " + cpfF + " " + saldo;
     }
 
     public int getNumeroConta() {
@@ -71,12 +85,20 @@ public abstract class ContaServiceImpl implements ContaService {
         this.nomeTitular = nomeTitular;
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCPF(String cpf) {
-        CPF = cpf;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCpfF() {
+        return cpfF;
+    }
+
+    public void setCpfF(String cpfF) {
+        this.cpfF = cpfF;
     }
 
     public double getSaldo() {
