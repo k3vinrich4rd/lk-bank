@@ -8,7 +8,7 @@ public class ContaTeste extends ContaServiceImpl {
 
     @Override
     public String toString() {
-        return "Numero da conta: " + getNumeroConta() + "\nNome do titular: " + getNomeTitular() + "\nCpf: " + getCPF()
+        return "Numero da conta: " + getNumeroConta() + "\nNome do titular: " + getNomeTitular() + "\nCpf: " + getCpf()
                 + "\nSaldo: " + getSaldo();
     }
 

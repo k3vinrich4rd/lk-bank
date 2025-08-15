@@ -6,6 +6,10 @@ public class ContaCorrente extends ContaServiceImpl {
         super(nomeTitular, cPF, saldo);
     }
 
+    public ContaCorrente() {
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public double sacar(double valorSaque) {
         double taxa = 0.05 * valorSaque;
