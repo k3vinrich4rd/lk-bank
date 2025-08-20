@@ -36,22 +36,19 @@ public class Application {
                     System.out.println("\nInsira o valor do depósito inicial: ");
                     double saldoInicial = sc.nextDouble();
                     ContaServiceImpl conta = new ContaPoupanca(nomeTitular, cpf, saldoInicial);
-                    File account = new File("\\accounts\\" + conta.getNumeroConta() + ".txt");
                     if (!pasta.exists()) {
                         pasta.mkdirs();
                     }
                     try (BufferedWriter bx = new BufferedWriter(
                             new FileWriter("\\LKBANK\\accounts\\" + conta.getNumeroConta() + ".txt"))) {
                         bx.write(conta.fileWriter(conta));
-                        bx.close();
                     } catch (IOException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
 
                     System.out.println("Conta criada com sucesso! " + conta);
 
-                    System.out.println(conta.toString());
-                    System.out.println("insira o valor do depósito: ");
+                    System.out.println("Insira o valor do depósito: ");
                     double valorDeposito = sc.nextDouble();
                     conta.depositar(valorDeposito);
                     System.out.println(conta.toString());
@@ -75,17 +72,83 @@ public class Application {
                             f.pesquisa(numeroC).getCpfF(),
                             f.pesquisa(numeroC).getSaldo());
                     System.out.println(resultado.toString());
-                    x=3;
+                     
+                               
+                    System.out.println("Bem vindo(a) " + resultado.getNomeTitular() + "! O que deseja fazer com a sua conta?");
+                    System.out.print("1 - Depósito\n2 - Saque\n3 - Transferência: ");
+                    int y = sc.nextInt();
+                    while (y != 0) {
+                        switch (y) {
+                            case 1:
+                                System.out.print("Insira o valor do depósito: ");
+                                double deposito = sc.nextDouble();
+                                resultado.depositar(deposito);
+                                System.out.print("Depósito realizado com sucesso! \nNovo saldo: " + resultado.getSaldo());
+                                       try (BufferedWriter bx = new BufferedWriter(new FileWriter("\\LKBANK\\accounts\\" + resultado.getNumeroConta() + ".txt"))) {
+                                    bx.write(resultado.fileWriter(resultado));
+                                } catch (IOException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
+                                y=0;
+                                x=3;
+                                break;
+                            case 2:
+                            System.out.println("Insira o valor do saque: ");
+                            double saque = sc.nextDouble();
+                            resultado.sacar(saque);
+                            System.out.println("Saque realizado com sucesso! \nNovo saldo: " + resultado.getSaldo());
+                                    try (BufferedWriter bx = new BufferedWriter(new FileWriter("\\LKBANK\\accounts\\" + resultado.getNumeroConta() + ".txt"))) {
+                                    bx.write(resultado.fileWriter(resultado));
+                                } catch (IOException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
+                            y=0;
+                            x=3;
+                            break;
+                            case 3:
+                            System.out.println("Insira o valor da transferência: ");
+                            double transferencia = sc.nextDouble();
+                            System.out.println("Insira o número da conta que vai receber a transferência: ");
+                            int contaAlvo = sc.nextInt();
+
+                            while(f.pesquisa(contaAlvo) == null){
+                                System.out.println("Conta não encontrada! \nInsira o número da sua conta: ");
+                                contaAlvo = sc.nextInt();
+                            }
+                            ContaServiceImpl receptor = new ContaPoupanca(f.pesquisa(contaAlvo).getNumeroConta(),
+                                f.pesquisa(contaAlvo).getNomeTitular(),
+                                f.pesquisa(contaAlvo).getCpfF(),
+                                f.pesquisa(contaAlvo).getSaldo());
+                            resultado.transferir(transferencia, receptor);
+                            System.out.println("Transferência concluída com sucesso!\nSaldo conta remetente: " + resultado.getSaldo() + "\nSaldo conta destinatária: " + receptor.getSaldo());
+                                    try (BufferedWriter bx = new BufferedWriter(new FileWriter("\\LKBANK\\accounts\\" + resultado.getNumeroConta() + ".txt"));
+                                          BufferedWriter rx = new BufferedWriter(new FileWriter("\\LKBANK\\accounts\\" + receptor.getNumeroConta() + ".txt"))) {
+                                    bx.write(resultado.fileWriter(resultado));
+                                    rx.write(receptor.fileWriter(receptor));
+                                } catch (IOException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
+                                y=0;
+                                x=3;
+
+
+                        
+                            default:    
+                        
+                                break;
+                            }
+                        
+                    }
+                
+                                 
                     
+
                     continue;
-                    
 
                 default:
                     break;
-            }
         }
+        }sc.close();
 
-        sc.close();
+}}
 
-    }
-}
