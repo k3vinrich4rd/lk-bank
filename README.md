@@ -24,29 +24,72 @@ O principal objetivo deste projeto é consolidar e aplicar conhecimentos adquiri
 - Transferência entre contas
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 classDiagram
 direction TB
-    class ContaService {
-	    +Sacar(double Saldo, double ValorSaque)
-	    +Depositar(double Saldo, double ValorDeposito))
-	    +Transferir(double Saldo, double ValorTransferencia))
+    class ContaCorrente {
+	    +sacar(double valorSaque) double
     }
+    class ContaPoupanca {
+	    +depositar(double saldo) double
+    }
+	link ContaPoupanca "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/service/ContaPoupanca.java" "Ir para a classe no projeto"
+	link ContaCorrente "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/service/ContaCorrente.java" "Ir para a classe no projeto"
+    class ContaService {
+	    +sacar(double ValorSaque) double
+	    +depositar(double valorDeposito) double
+	    +transferir(double ValorTransferencia, ContaService conta) double
+    }
+	link ContaService "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/service/ContaService.java" "Ir para a classe no projeto"
 
     class ContaServiceImpl {
 	    -int numeroConta
 	    -String nomeTitular
 	    -double saldo
 	    -String CPF
+	    +formatarCpf(String cpf) String$
+	    +fileWriter(ContaServiceImpl conta) String
     }
+	link ContaServiceImpl "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/service/ContaServiceImpl.java" "Ir para a classe no projeto"
 
-    class ContaCorrente {
+    class FileService {
+	    -String[] files
+	    -List contas
+	    -ContaServiceImpl c
+	    -File f
+	    +compararNomeDuplo(int numeroConta) boolean
+	    +pesquisa(int numeroConta) ContaServiceImpl
+	    +criarPasta() void
     }
+	link FileService "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/service/FileService.java" "Ir para a classe no projeto"
+
+    class ExceptionsEnum {
+	    -String message$
+	    +getMessage(Object... args) String
+    }
+	link ExceptionsEnum "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/enums/ExceptionsEnum.java" "Ir para a classe no projeto"
+
+    class SaldoInsuficienteException {
+	    SaldoInsuficienteException(String message)
+    }
+	link SaldoInsuficienteException "https://github.com/k3vinrich4rd/lk-bank/blob/develop/src/exception/SaldoInsuficienteException.java" "Ir para a classe no projeto"
+
 
 	<<Interface>> ContaService
 	<<Abstract>> ContaServiceImpl
+	<<Service>> FileService
+	<<enum>> ExceptionsEnum
+	<<exception>> SaldoInsuficienteException
 
     ContaServiceImpl <|-- ContaService
-    ContaCorrente -- ContaServiceImpl
+    ContaCorrente <|-- ContaServiceImpl
+    ContaPoupanca <|-- ContaServiceImpl
+    FileService .. ContaServiceImpl
+    ExceptionsEnum ..|> SaldoInsuficienteException
+
 ```
 
 
